@@ -141,15 +141,10 @@ def get_action(player, history, opponent_history, score, opponent_score, getting
     #This example player always betrays.      
     elif player == 1:
         if getting_team_name:
-            return 'proigrayesh'
+            return 'backstabber'
         else:
-            if len(opponent_history) ==0:
-                return 'b'
-            else:
-                if opponent_history == 'c':
-                    return 'b'
-                else:
-                    return 'c'
+            return 'b'
+
 
 
 
@@ -163,45 +158,16 @@ def get_action(player, history, opponent_history, score, opponent_score, getting
     #This example player is silent at first and then 
     #only betrays if they were a sucker last round.
     elif player == 2:
-        trust = 0
-        hatred = 0
-        size = len(opponent_history)
         if getting_team_name:
-            return 'The Heralds of Danny Devito'
+            return 'loyal vengeful'
         else:
-                len(history) = size
-                if trust == -1:
-                    trust = 0
-                elif hatred == -1:
-                    hatred = 0
-                elif hatred == 2:
-                    hatred = 1
-                elif trust ==3:
-                    trust = 2
-                elif (size%4==0):
-                   return 'b' 
-                elif len(opponent_history) < 4:
-                    return 'b'    
-                elif opponent_history > 0 == 'b':
-                    hatred= 1 + hatred
-                    trust = trust - 1
-                elif opponent_history > 0 == 'c':
-                    trust = trust + 1
-                    hatred= hatred - 1
-                else:
-                    if opponent_history < 4 and trust >= 2:
-                        return 'c'
-                    elif opponent_history < 4 and hatred >= 1:
-                        return 'b'
-                    else:
-                        if opponent_history > 10 and hatred >= 1:
-                        ##The Heralds of Danny Devito began to get paranoid##
-                            return 'b'
-                        elif opponent_history > 10 and trust >= 2:
-                        ##The Heralds of Danny Devito have developed trust##
-                            return 'c'
-                        else:
-                           return 'b'
+            if len(opponent_history)==0: #It's the first round: collude
+                return 'c'
+            elif history[-1]=='c' and opponent_history[-1]=='b':
+                return 'b' # betray if they were severely punished last time
+            else:
+                return 'c' #otherwise collude
+
 
     
     
@@ -233,6 +199,7 @@ def get_action(player, history, opponent_history, score, opponent_score, getting
                 return 'b' 
             else:
                 return 'c' 
+
 
 
 
@@ -298,22 +265,16 @@ def get_action(player, history, opponent_history, score, opponent_score, getting
     elif player == 6:
         if getting_team_name:
             return 'loyal vengeful'
-            return 'LordKing'
         else:
             # use history, opponent_history, score, opponent_score
             # to compute your strategy
             if len(opponent_history)==0: #It's the first round: collude
                 return 'c'
             elif history[-1]=='c' and opponent_history[-1]=='b':
-                return 'b'
-            elif history[-1]=='b' and opponent_history[-1]=='c':
                 return 'b' # betray is they were severely punished last time
             else:
                 return 'c' #otherwise collude
-            if random.random()<0.1:
-                    return 'b'        
-            else:
-                     return 'c'
+    
 
 
 
